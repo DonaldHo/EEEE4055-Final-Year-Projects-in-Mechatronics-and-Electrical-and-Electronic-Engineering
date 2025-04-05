@@ -1,0 +1,249 @@
+ST Edge AI Core v2.0.0-20049
+Created date          : 2025-03-17 14:10:45
+Parameters            : generate --target stm32u5 --name cnn -m C:/Users/donal/Downloads/AI GMPPT/AI/CNN.tflite --compression none --verbosity 1 --workspace C:/Users/donal/AppData/Local/Temp/mxAI_workspace3285980212989008074470801392000777 --output C:/Users/donal/.stm32cubemx/cnn_output
+
+Exec/report summary (generate)
+------------------------------------------------------------------------------------------------------------
+model file         :   C:\Users\donal\Downloads\AI GMPPT\AI\CNN.tflite                                      
+type               :   tflite                                                                               
+c_name             :   cnn                                                                                  
+compression        :   none                                                                                 
+options            :   allocate-inputs, allocate-outputs                                                    
+optimization       :   balanced                                                                             
+target/series      :   stm32u5                                                                              
+workspace dir      :   C:\Users\donal\AppData\Local\Temp\mxAI_workspace3285980212989008074470801392000777   
+output dir         :   C:\Users\donal\.stm32cubemx\cnn_output                                               
+model_fmt          :   float                                                                                
+model_name         :   CNN                                                                                  
+model_hash         :   0x029ffa7b6fc8e1877009571b1fcd4c0e                                                   
+params #           :   1,466 items (5.73 KiB)                                                               
+------------------------------------------------------------------------------------------------------------
+input 1/1          :   'serving_default_ke..tensor_200', f32(1x3x1), 12 Bytes, activations                  
+output 1/1         :   'gemm_15', f32(1x6), 24 Bytes, activations                                           
+macc               :   4,016                                                                                
+weights (ro)       :   5,864 B (5.73 KiB) (1 segment)                                                       
+activations (rw)   :   360 B (360 B) (1 segment) *                                                          
+ram (total)        :   360 B (360 B) = 360 + 0 + 0                                                          
+------------------------------------------------------------------------------------------------------------
+(*) 'input'/'output' buffers can be used from the activations buffer
+
+Model name - CNN
+------ ------------------------------------------ -------------------- ------------ ------ -------------------------------- --- -------------- --------------- ----------------------------- 
+m_id   layer (type,original)                      oshape               param/size     macc                     connected to   | c_size         c_macc          c_type                        
+------ ------------------------------------------ -------------------- ------------ ------ -------------------------------- --- -------------- --------------- ----------------------------- 
+0      serving_default_ke..tensor_200 (Input, )   [b:1,h:3,c:1]                                                               |                                
+       reshape_0 (Reshape, EXPAND_DIMS)           [b:1,h:1,w:3,c:1]                          serving_default_ke..tensor_200   |                                
+------ ------------------------------------------ -------------------- ------------ ------ -------------------------------- --- -------------- --------------- ----------------------------- 
+1      conv2d_1 (Conv2D, CONV_2D)                 [b:1,h:1,w:3,c:10]   40/160          100                        reshape_0   |                +30(+30.0%)     Conv2D_/Nonlinearity_[0, 1]   
+       nl_1_nl (Nonlinearity, CONV_2D)            [b:1,h:1,w:3,c:10]                    30                         conv2d_1   |                -30(-100.0%)    
+------ ------------------------------------------ -------------------- ------------ ------ -------------------------------- --- -------------- --------------- ----------------------------- 
+2      reshape_2 (Reshape, RESHAPE)               [b:1,h:3,c:10]                                                    nl_1_nl   |                                
+------ ------------------------------------------ -------------------- ------------ ------ -------------------------------- --- -------------- --------------- ----------------------------- 
+3      reshape_3 (Reshape, EXPAND_DIMS)           [b:1,h:1,w:3,c:10]                                              reshape_2   |                                
+------ ------------------------------------------ -------------------- ------------ ------ -------------------------------- --- -------------- --------------- ----------------------------- 
+4      conv2d_4 (Conv2D, CONV_2D)                 [b:1,h:1,w:3,c:10]   310/1,240       910                        reshape_3   |                                Conv2D_[2]                    
+------ ------------------------------------------ -------------------- ------------ ------ -------------------------------- --- -------------- --------------- ----------------------------- 
+5      reshape_5 (Reshape, RESHAPE)               [b:1,h:3,c:10]                                                   conv2d_4   |                                
+------ ------------------------------------------ -------------------- ------------ ------ -------------------------------- --- -------------- --------------- ----------------------------- 
+6      reshape_6 (Reshape, EXPAND_DIMS)           [b:1,h:1,w:3,c:10]                                              reshape_5   |                                
+------ ------------------------------------------ -------------------- ------------ ------ -------------------------------- --- -------------- --------------- ----------------------------- 
+7      conv2d_7 (Conv2D, CONV_2D)                 [b:1,h:1,w:3,c:10]   310/1,240       910                        reshape_6   |                +30(+3.3%)      Conv2D_/Nonlinearity_[3, 4]   
+       nl_7_nl (Nonlinearity, CONV_2D)            [b:1,h:1,w:3,c:10]                    30                         conv2d_7   |                -30(-100.0%)    
+------ ------------------------------------------ -------------------- ------------ ------ -------------------------------- --- -------------- --------------- ----------------------------- 
+8      reshape_8 (Reshape, RESHAPE)               [b:1,h:3,c:10]                                                    nl_7_nl   |                                
+------ ------------------------------------------ -------------------- ------------ ------ -------------------------------- --- -------------- --------------- ----------------------------- 
+9      reshape_9 (Reshape, EXPAND_DIMS)           [b:1,h:1,w:3,c:10]                                              reshape_8   |                                
+------ ------------------------------------------ -------------------- ------------ ------ -------------------------------- --- -------------- --------------- ----------------------------- 
+10     conv2d_10 (Conv2D, CONV_2D)                [b:1,h:1,w:3,c:10]   310/1,240       910                        reshape_9   |                                Conv2D_[5]                    
+------ ------------------------------------------ -------------------- ------------ ------ -------------------------------- --- -------------- --------------- ----------------------------- 
+11     reshape_11 (Reshape, RESHAPE)              [b:1,h:3,c:10]                                                  conv2d_10   |                                
+------ ------------------------------------------ -------------------- ------------ ------ -------------------------------- --- -------------- --------------- ----------------------------- 
+12     reshape_12 (Reshape, EXPAND_DIMS)          [b:1,h:1,w:3,c:10]                                             reshape_11   |                                
+------ ------------------------------------------ -------------------- ------------ ------ -------------------------------- --- -------------- --------------- ----------------------------- 
+13     conv2d_13 (Conv2D, CONV_2D)                [b:1,h:1,w:3,c:10]   310/1,240       910                       reshape_12   |                +30(+3.3%)      Conv2D_/Nonlinearity_[6, 7]   
+       nl_13_nl (Nonlinearity, CONV_2D)           [b:1,h:1,w:3,c:10]                    30                        conv2d_13   |                -30(-100.0%)    
+------ ------------------------------------------ -------------------- ------------ ------ -------------------------------- --- -------------- --------------- ----------------------------- 
+14     reshape_14 (Reshape, RESHAPE)              [b:1,c:30]                                                       nl_13_nl   |                                
+------ ------------------------------------------ -------------------- ------------ ------ -------------------------------- --- -------------- --------------- ----------------------------- 
+15     arith_constant11 (Placeholder, )           [b:6,c:30]           180/720                                                | +24(+3.3%)     +186(+100.0%)   Dense_[o][8]                  
+       arith_constant12 (Placeholder, )           [b:6]                6/24                                                   | -24(-100.0%)                   
+       gemm_15 (Gemm, FULLY_CONNECTED)            [b:1,c:6]                            186                       reshape_14   |                -186(-100.0%)   
+                                                                                                           arith_constant11   | 
+                                                                                                           arith_constant12   | 
+------ ------------------------------------------ -------------------- ------------ ------ -------------------------------- --- -------------- --------------- ----------------------------- 
+model/c-model: macc=4,016/4,016  weights=5,864/5,864  activations=--/360 io=--/0
+
+
+
+Generated C-graph summary
+------------------------------------------------------------------------------------------------------------------------
+model name            : CNN
+c-name                : cnn
+c-node #              : 9
+c-array #             : 27
+activations size      : 360 (1 segment)
+weights size          : 5864 (1 segment)
+macc                  : 4016
+inputs                : ['serving_default_keras_tensor_200_output']
+outputs               : ['gemm_15_output']
+
+C-Arrays (27)
+------ ----------------------------------------- ----------- ------------------------- ------------- --------- 
+c_id   name (*_array)                            item/size   domain/mem-pool           c-type        comment   
+------ ----------------------------------------- ----------- ------------------------- ------------- --------- 
+0      conv2d_10_bias                            10/40       weights/weights           const float             
+1      conv2d_10_output                          30/120      activations/**default**   float                   
+2      conv2d_10_scratch0                        30/120      activations/**default**   float                   
+3      conv2d_10_weights                         300/1200    weights/weights           const float             
+4      conv2d_13_bias                            10/40       weights/weights           const float             
+5      conv2d_13_output                          30/120      activations/**default**   float                   
+6      conv2d_13_scratch0                        30/120      activations/**default**   float                   
+7      conv2d_13_weights                         300/1200    weights/weights           const float             
+8      conv2d_1_bias                             10/40       weights/weights           const float             
+9      conv2d_1_output                           30/120      activations/**default**   float                   
+10     conv2d_1_scratch0                         3/12        activations/**default**   float                   
+11     conv2d_1_weights                          30/120      weights/weights           const float             
+12     conv2d_4_bias                             10/40       weights/weights           const float             
+13     conv2d_4_output                           30/120      activations/**default**   float                   
+14     conv2d_4_scratch0                         30/120      activations/**default**   float                   
+15     conv2d_4_weights                          300/1200    weights/weights           const float             
+16     conv2d_7_bias                             10/40       weights/weights           const float             
+17     conv2d_7_output                           30/120      activations/**default**   float                   
+18     conv2d_7_scratch0                         30/120      activations/**default**   float                   
+19     conv2d_7_weights                          300/1200    weights/weights           const float             
+20     gemm_15_bias                              6/24        weights/weights           const float             
+21     gemm_15_output                            6/24        activations/**default**   float         /output   
+22     gemm_15_weights                           180/720     weights/weights           const float             
+23     nl_13_nl_output                           30/120      activations/**default**   float                   
+24     nl_1_nl_output                            30/120      activations/**default**   float                   
+25     nl_7_nl_output                            30/120      activations/**default**   float                   
+26     serving_default_keras_tensor_200_output   3/12        activations/**default**   float         /input    
+------ ----------------------------------------- ----------- ------------------------- ------------- --------- 
+
+C-Layers (9)
+------ ---------------- ---- --------------- ------ ------ -------------------------------------------- --------------------- 
+c_id   name (*_layer)   id   layer_type      macc   rom    tensors                                      shape (array id)      
+------ ---------------- ---- --------------- ------ ------ -------------------------------------------- --------------------- 
+0      conv2d_1         1    Conv2D          100    160    I: serving_default_keras_tensor_200_output   f32(1x3x1) (26)       
+                                                           S: conv2d_1_scratch0                                               
+                                                           W: conv2d_1_weights                          f32(10x1x3x1) (11)    
+                                                           W: conv2d_1_bias                             f32(10) (8)           
+                                                           O: conv2d_1_output                           f32(1x1x3x10) (9)     
+------ ---------------- ---- --------------- ------ ------ -------------------------------------------- --------------------- 
+1      nl_1_nl          1    Nonlinearity    30     0      I: conv2d_1_output                           f32(1x1x3x10) (9)     
+                                                           O: nl_1_nl_output                            f32(1x1x3x10) (24)    
+------ ---------------- ---- --------------- ------ ------ -------------------------------------------- --------------------- 
+2      conv2d_4         4    Conv2D          910    1240   I: nl_1_nl_output                            f32(1x1x3x10) (24)    
+                                                           S: conv2d_4_scratch0                                               
+                                                           W: conv2d_4_weights                          f32(10x1x3x10) (15)   
+                                                           W: conv2d_4_bias                             f32(10) (12)          
+                                                           O: conv2d_4_output                           f32(1x1x3x10) (13)    
+------ ---------------- ---- --------------- ------ ------ -------------------------------------------- --------------------- 
+3      conv2d_7         7    Conv2D          910    1240   I: conv2d_4_output                           f32(1x1x3x10) (13)    
+                                                           S: conv2d_7_scratch0                                               
+                                                           W: conv2d_7_weights                          f32(10x1x3x10) (19)   
+                                                           W: conv2d_7_bias                             f32(10) (16)          
+                                                           O: conv2d_7_output                           f32(1x1x3x10) (17)    
+------ ---------------- ---- --------------- ------ ------ -------------------------------------------- --------------------- 
+4      nl_7_nl          7    Nonlinearity    30     0      I: conv2d_7_output                           f32(1x1x3x10) (17)    
+                                                           O: nl_7_nl_output                            f32(1x1x3x10) (25)    
+------ ---------------- ---- --------------- ------ ------ -------------------------------------------- --------------------- 
+5      conv2d_10        10   Conv2D          910    1240   I: nl_7_nl_output                            f32(1x1x3x10) (25)    
+                                                           S: conv2d_10_scratch0                                              
+                                                           W: conv2d_10_weights                         f32(10x1x3x10) (3)    
+                                                           W: conv2d_10_bias                            f32(10) (0)           
+                                                           O: conv2d_10_output                          f32(1x1x3x10) (1)     
+------ ---------------- ---- --------------- ------ ------ -------------------------------------------- --------------------- 
+6      conv2d_13        13   Conv2D          910    1240   I: conv2d_10_output                          f32(1x1x3x10) (1)     
+                                                           S: conv2d_13_scratch0                                              
+                                                           W: conv2d_13_weights                         f32(10x1x3x10) (7)    
+                                                           W: conv2d_13_bias                            f32(10) (4)           
+                                                           O: conv2d_13_output                          f32(1x1x3x10) (5)     
+------ ---------------- ---- --------------- ------ ------ -------------------------------------------- --------------------- 
+7      nl_13_nl         13   Nonlinearity    30     0      I: conv2d_13_output                          f32(1x1x3x10) (5)     
+                                                           O: nl_13_nl_output                           f32(1x1x3x10) (23)    
+------ ---------------- ---- --------------- ------ ------ -------------------------------------------- --------------------- 
+8      gemm_15          15   Dense           186    744    I: nl_13_nl_output                           f32(1x1x3x10) (23)    
+                                                           W: gemm_15_weights                           f32(6x30) (22)        
+                                                           W: gemm_15_bias                              f32(6) (20)           
+                                                           O: gemm_15_output                            f32(1x6) (21)         
+------ ---------------- ---- --------------- ------ ------ -------------------------------------------- --------------------- 
+
+
+
+Number of operations per c-layer
+------- ------ ------------------------- ------- -------------- 
+c_id    m_id   name (type)                   #op           type 
+------- ------ ------------------------- ------- -------------- 
+0       1      conv2d_1 (Conv2D)             100   smul_f32_f32 
+1       1      nl_1_nl (Nonlinearity)         30     op_f32_f32 
+2       4      conv2d_4 (Conv2D)             910   smul_f32_f32 
+3       7      conv2d_7 (Conv2D)             910   smul_f32_f32 
+4       7      nl_7_nl (Nonlinearity)         30     op_f32_f32 
+5       10     conv2d_10 (Conv2D)            910   smul_f32_f32 
+6       13     conv2d_13 (Conv2D)            910   smul_f32_f32 
+7       13     nl_13_nl (Nonlinearity)        30     op_f32_f32 
+8       15     gemm_15 (Dense)               186   smul_f32_f32 
+------- ------ ------------------------- ------- -------------- 
+total                                      4,016 
+
+Number of operation types
+---------------- ------- ----------- 
+operation type         #           % 
+---------------- ------- ----------- 
+smul_f32_f32       3,926       97.8% 
+op_f32_f32            90        2.2% 
+
+Complexity report (model)
+------ ------------------ ------------------------- ------------------------- -------- 
+m_id   name               c_macc                    c_rom                     c_id     
+------ ------------------ ------------------------- ------------------------- -------- 
+1      conv2d_1           |||                3.2%   ||                 2.7%   [0, 1]   
+4      conv2d_4           |||||||||||||||   22.7%   ||||||||||||||||  21.1%   [2]      
+7      conv2d_7           ||||||||||||||||  23.4%   ||||||||||||||||  21.1%   [3, 4]   
+10     conv2d_10          |||||||||||||||   22.7%   ||||||||||||||||  21.1%   [5]      
+13     conv2d_13          ||||||||||||||||  23.4%   ||||||||||||||||  21.1%   [6, 7]   
+15     arith_constant11   |||                4.6%   ||||||||||        12.7%   [8]      
+------ ------------------ ------------------------- ------------------------- -------- 
+macc=4,016 weights=5,864 act=360 ram_io=0
+ 
+ Requested memory size by section - "stm32u5" target
+ ------------------------------- ------- -------- ------- ----- 
+ module                             text   rodata    data   bss 
+ ------------------------------- ------- -------- ------- ----- 
+ NetworkRuntime1000_CM33_GCC.a     8,620        0       0     0 
+ cnn.o                               766       72   3,548   140 
+ cnn_data.o                           48       16      88     0 
+ lib (toolchain)*                      0        0       0     0 
+ ------------------------------- ------- -------- ------- ----- 
+ RT total**                        9,434       88   3,636   140 
+ ------------------------------- ------- -------- ------- ----- 
+ weights                               0    5,864       0     0 
+ activations                           0        0       0   360 
+ io                                    0        0       0     0 
+ ------------------------------- ------- -------- ------- ----- 
+ TOTAL                             9,434    5,952   3,636   500 
+ ------------------------------- ------- -------- ------- ----- 
+ *  toolchain objects (libm/libgcc*)
+ ** RT AI runtime objects (kernels+infrastructure)
+  
+  Summary - "stm32u5" target
+  ---------------------------------------------------
+               FLASH (ro)      %*   RAM (rw)       % 
+  ---------------------------------------------------
+  RT total         13,158   69.2%      3,776   91.3% 
+  ---------------------------------------------------
+  TOTAL            19,022              4,136         
+  ---------------------------------------------------
+  *  rt/total
+
+
+Generated files (7)
+---------------------------------------------------------- 
+C:\Users\donal\.stm32cubemx\cnn_output\cnn_data_params.h   
+C:\Users\donal\.stm32cubemx\cnn_output\cnn_data_params.c   
+C:\Users\donal\.stm32cubemx\cnn_output\cnn_data.h          
+C:\Users\donal\.stm32cubemx\cnn_output\cnn_data.c          
+C:\Users\donal\.stm32cubemx\cnn_output\cnn_config.h        
+C:\Users\donal\.stm32cubemx\cnn_output\cnn.h               
+C:\Users\donal\.stm32cubemx\cnn_output\cnn.c               
